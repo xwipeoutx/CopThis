@@ -21,3 +21,5 @@ obj/
 _ReSharper*/
 packages
 .vs
+*.mdf
+*.ldf
