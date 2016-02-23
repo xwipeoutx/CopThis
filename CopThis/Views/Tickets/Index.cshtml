@@ -1,15 +1,57 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using CopThis.Domain.Commands
+@model IEnumerable<CopThis.Controllers.TicketRow>
+@{
+    ViewBag.Title = "Tickets";
 }
 
-<div class="jumbotron">
-    <p class="lead">
-        Cop This is a sample application that attempts to guide you to good application design without the crazy overhead and complication usually present in these sorts of samples.
-    </p>
-    <p>
-        <a href="https://github.com/xwipeoutx" class="btn btn-lg">Project on GitHub</a>
-    </p>
-    <p>
-        <a href="https://stevesspace.com" class="btn btn-lg">BlogPost on Steve's Space</a>
-    </p>
+<h2>Tickets</h2>
+
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LicensePlate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpeedExceededBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Make)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LicensePlate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpeedExceededBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Make)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @using (@Html.BeginForm("Pay", "Tickets"))
+                    {
+                        @Html.AntiForgeryToken();
+                        @Html.Hidden("TicketId", item.Id);
+
+                        <input type="submit" value="Pay" class="btn" />
+                        @Html.ActionLink("View", "View", new { id = item.Id }, new { @class = "btn-link" })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+
 </div>

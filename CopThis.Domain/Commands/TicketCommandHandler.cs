@@ -27,7 +27,7 @@ namespace CopThis.Domain.Commands
             {
                 Vehicle = vehicle,
                 SpeedLimit = command.SpeedLimit,
-                ActualSpeed = command.SpeedLimit
+                ActualSpeed = command.ActualSpeed
             };
             _ticketRepository.Create(ticket);
             return ticket;
